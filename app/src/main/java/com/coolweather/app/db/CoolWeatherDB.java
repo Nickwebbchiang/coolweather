@@ -1,11 +1,10 @@
-package com.coolweather.app;
+package com.coolweather.app.db;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.coolweather.app.db.CoolWeatherOpenHelper;
 import com.coolweather.app.model.City;
 import com.coolweather.app.model.County;
 import com.coolweather.app.model.Province;
@@ -37,13 +36,9 @@ public class CoolWeatherDB {
     /**
      * 获取CoolWeatherDB的实例
      */
-    public  static CoolWeatherDB getInstance(Context context) {
-        if (coolWeatherDB != null){
-            synchronized(context) {
-                if (coolWeatherDB != null){
-                    coolWeatherDB = new CoolWeatherDB(context);
-                }
-            }
+    public  synchronized static CoolWeatherDB getInstance(Context context) {
+        if (coolWeatherDB == null){
+            coolWeatherDB = new CoolWeatherDB(context);
         }
         return coolWeatherDB;
     }
